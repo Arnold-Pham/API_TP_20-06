@@ -5,95 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TP2 currency converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <div>
-        <input type="number" id="val">
-        <select name="select-1" id="select-1">
+<body class="container">
+    <div class="d-flex">
+        <input class="form-control" type="number" id="val">
+        <select class="form-control" name="select-1" id="select-1">
             <option value="1">EUR</option>
             <option value="2">USD</option>
             <option value="3">GBP</option>
             <option value="4">CAD</option>
         </select>
     </div>
-    <br>
-    <div>
-        <input type="number" id="res" disabled>
-        <select name="select-2" id="select-2">
+    <div class="d-flex">
+        <input class="form-control" type="number" id="res" disabled>
+        <select class="form-control" name="select-2" id="select-2">
             <option value="1">EUR</option>
             <option value="2">USD</option>
             <option value="3">GBP</option>
             <option value="4">CAD</option>
         </select>
     </div>
-    <br>
-    <button>Convert</button>
-
-    <script>
-        async function getChange() {
-            let url = `http://data.fixer.io/api/latest?access_key=66da8adf19a844bca7ff61734b58cfa1&base=EUR&symbols=USD,GBP,CAD`
-            let response = await fetch(url);
-            let data = await response.json();
-            return data;
-        }
-
-        document.querySelector('button').onclick = async () => {
-            let select1 = document.querySelector('#select-1').value,
-                select2 = document.querySelector('#select-2').value,
-                res = document.querySelector('#res'),
-                val = document.querySelector('#val')
-
-            if (select1 == select2) {
-                res.value = val.value;
-            } else {
-                let taux = await getChange();
-                console.log(taux);
-
-                let usd = taux.rates.USD,
-                    gbp = taux.rates.GBP,
-                    cad = taux.rates.CAD,
-                    eur = 1
-
-                console.log(usd, gbp, cad);
-                let chang1
-                switch (select1) {
-                    case '1':
-                        chang1 = eur
-                        break
-                    case '2':
-                        chang1 = usd
-                        break
-                    case '3':
-                        chang1 = gbp
-                        break
-                    case '4':
-                        chang1 = cad
-                        break
-                }
-                let affiche1 = val.value / chang1
-
-                let chang2
-                switch (select2) {
-                    case '1':
-                        chang2 = eur
-                        break
-                    case '2':
-                        chang2 = usd
-                        break
-                    case '3':
-                        chang2 = gbp
-                        break
-                    case '4':
-                        chang2 = cad
-                        break
-                }
-                let affiche2 = affiche1 * chang2
-                console.log(affiche1, affiche2);
-                res.value = affiche2
-            }
-        }
-    </script>
+    <button class="btn btn-primary">Convert</button>
 </body>
 
 </html>
